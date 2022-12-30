@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'transactions',
     'rest_framework',
     'authentications',
+    'friends'
 ]
 
 MIDDLEWARE = [
