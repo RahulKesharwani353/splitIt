@@ -57,3 +57,12 @@ class TransactionView(APIView):
                     "message": "deleted successfully"
             }
             return Response(response_data, status=status.HTTP_200_OK)
+
+class ListCategoryView(APIView):
+    def get(self,request):
+        data = Category.objects.all()
+        serializer = CategorySerializer(data, many = True)
+        response_data={
+                "data": serializer.data
+            }
+        return Response(response_data, status=status.HTTP_200_OK)
