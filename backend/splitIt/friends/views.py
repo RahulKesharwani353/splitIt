@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 class AddFriendsView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = FriendSerializer(data=request.data)
         if serializer.is_valid():
@@ -24,6 +25,7 @@ class AddFriendsView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ListFriendsView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         User = request.user
         friends = Friend.objects.filter(user = User)
@@ -34,7 +36,7 @@ class ListFriendsView(APIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 class ListAllUsersView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         user = User.objects.all()
         serializer = GetUserSerializer(user, many=True)

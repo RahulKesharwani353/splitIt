@@ -8,6 +8,7 @@ from .models import *
 # Create your views here.
 
 class ListTransactionView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self,request):
         user = request.user
         data = Transaction.objects.filter(user = user)
@@ -34,6 +35,7 @@ class ListTransactionView(APIView):
 
 
 class TransactionView(APIView):
+        permission_classes = [IsAuthenticated]
         def patch(self, request, pk):
             obj = Transaction.objects.get(id=pk)
             serializer = CreateTransactionSerializer(obj, data=request.data, partial=True) # set partial=True to update a data partially
